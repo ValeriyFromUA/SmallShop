@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} Каталог {% endblock %}
+{% block content %}
+    <style>
+        .card {
+            height: 100%;
+        }
+
+        .card-link {
+            display: block;
+            height: 100%;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+                <div class="btn-group mb-2">
+                    <span class="mr-2">Сортувати за ціною:</span>
+                    <a href="?sort_by=price_asc" class="btn btn-secondary">▲</a>
+                    <a href="?sort_by=price_desc" class="btn btn-secondary">▼</a>
+                    <span class="mx-3"></span>
+                    <span class="mr-2">Сортувати за датою:</span>
+                    <a href="?sort_by=date_asc" class="btn btn-secondary">▲</a>
+                    <a href="?sort_by=date_desc" class="btn btn-secondary">▼</a>
+                </div>
+            </div>
+
+            {% for item in items %}
+                <div class="col-md-4 mb-4 mt-4">
+                    <div class="card rounded">
+                        <a href="{% url 'item' pk=item.id %}" class="card-link">
+                            <img src="/static{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: black">{{ item.title }}</h5>
+                                <p class="card-text" style="color: black">{{ item.price }}грн.</p>
+                                <p class="card-text" style="color: black">{{ item.created_at }}</p>
+                            </div>
+
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
